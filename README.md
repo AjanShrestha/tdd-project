@@ -30,3 +30,22 @@ node js/money.test.js
 ```python
 python3 py/test_money.py
 ```
+
+## Problem
+
+| Stock   | Stock Exchange | Shares | Share price |
+| ------- | -------------- | ------ | ----------- |
+| AAPL    | NASDAQ         | 100    | 124 USD     |
+| BMW     | DAX            | 400    | 74 EUR      |
+| Samsung | KSE            | 300    | 68000 KRW   |
+
+1. Do simple calculations on one currency.
+2. Support currency conversion.
+
+## Features/Tests/Behaviors
+
+- **5 USD x 2 = 10 USD**
+- 10 EUR x 2 = 20 EUR
+- 4000 KRW / 4 = 1000 KRW
+- 5 USD + 10 EUR = 17 USD
+- 1 USD + 1100 KRW = 2200 KRW
