@@ -47,6 +47,7 @@ python3 py/test_money.py
 - ~~5 USD x 2 = 10 USD~~
 - ~~10 EUR x 2 = 20 EUR~~
 - ~~4000 KRW / 4 = 1000 KRW~~
+- ~~5 USD + 10 USD = 15 USD~~
 - 5 USD + 10 EUR = 17 USD
 - 1 USD + 1100 KRW = 2200 KRW
 - Remove redundant Money multiplication tests

@@ -25,6 +25,23 @@ class Money {
   }
 }
 
+class Portfolio {
+  constructor() {
+    this.moneys = [];
+  }
+
+  add(...moneys) {
+    this.moneys = this.moneys.concat(moneys);
+  }
+
+  evaluate(currency) {
+    const total = this.moneys.reduce((sum, money) => {
+      return sum + money.amount;
+    }, 0);
+    return new Money(total, currency);
+  }
+}
+
 let fiver = new Dollar(5);
 let tenner = fiver.times(2);
 assert.strictEqual(tenner.amount, 10, 'Expected 5 USD * 2 = 10 USD');
@@ -44,3 +61,9 @@ let originalMoney = new Money(4002, 'KRW');
 let actualMoneyAfterDivision = originalMoney.divide(4);
 let expectedMoneyAfterDivsion = new Money(1000.5, 'KRW');
 assert.deepStrictEqual(actualMoneyAfterDivision, expectedMoneyAfterDivsion);
+
+// 5 USD + 10 USD = 15 USD
+let fifteenDollars = new Money(15, 'USD');
+let portfolio = new Portfolio();
+portfolio.add(fiveDollars, tenDollars);
+assert.deepStrictEqual(portfolio.evaluate('USD'), fifteenDollars);
