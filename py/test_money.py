@@ -5,20 +5,7 @@ from money import Money
 from portfolio import Portfolio
 
 
-class Dollar:
-    def __init__(self, amount) -> None:
-        self.amount = amount
-
-    def times(self, multiplier) -> type[Dollar]:
-        return Dollar(self.amount * multiplier)
-
-
 class TestMoney(unittest.TestCase):
-    def testMultiplication(self):
-        fiver = Dollar(5)
-        tenner = fiver.times(2)
-        self.assertEqual(10, tenner.amount)
-
     def testMultiplicationIn(self):
         ten_euros = Money(10, "EUR")
         twenty_euros = Money(20, "EUR")
