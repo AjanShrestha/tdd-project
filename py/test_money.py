@@ -1,7 +1,8 @@
 from __future__ import annotations
-import functools
-import operator
 import unittest
+
+from money import Money
+from portfolio import Portfolio
 
 
 class Dollar:
@@ -12,48 +13,13 @@ class Dollar:
         return Dollar(self.amount * multiplier)
 
 
-class Money:
-    amount = 0
-    currency = None
-
-    def __init__(self, amount, currency) -> None:
-        self.amount = amount
-        self.currency = currency
-
-    def __eq__(self, __o: type[Money]) -> bool:
-        return self.amount == __o.amount and self.currency == __o.currency
-
-    def times(self, multiplier) -> type[Money]:
-        return Money(self.amount * multiplier, self.currency)
-
-    def divide(self, divisor) -> type[Money]:
-        return Money(self.amount / divisor, self.currency)
-
-
-class Portfolio:
-    def __init__(self) -> None:
-        self.moneys = []
-
-    def add(self, *moneys):
-        self.moneys.extend(moneys)
-
-    def evaluate(self, currency: str) -> type[Money]:
-        total = functools.reduce(operator.add, map(lambda m: m.amount, self.moneys), 0)
-        return Money(total, currency)
-
-
 class TestMoney(unittest.TestCase):
     def testMultiplication(self):
         fiver = Dollar(5)
         tenner = fiver.times(2)
         self.assertEqual(10, tenner.amount)
 
-    def testMultiplicationInDollars(self):
-        five_dollars = Money(5, "USD")
-        ten_dollars = Money(10, "USD")
-        self.assertEqual(ten_dollars, five_dollars.times(2))
-
-    def testMultiplicationInEuros(self):
+    def testMultiplicationIn(self):
         ten_euros = Money(10, "EUR")
         twenty_euros = Money(20, "EUR")
         self.assertEqual(twenty_euros, ten_euros.times(2))
