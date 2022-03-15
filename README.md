@@ -48,10 +48,12 @@ python3 py/test_money.py
 - ~~10 EUR x 2 = 20 EUR~~
 - ~~4000 KRW / 4 = 1000 KRW~~
 - ~~5 USD + 10 USD = 15 USD~~
-- _**Separate test code from production code**_
-- _**Remove redundant tests**_
-- 5 USD + 10 EUR = 17 USD
+- ~~Separate test code from production code~~
+- ~~Remove redundant tests~~
+- ~~5 USD + 10 EUR = 17 USD~~
 - 1 USD + 1100 KRW = 2200 KRW
+- Determine exchange rate based on the currencies involved(from -> to)
+- Allow exchange rates to be modified
 
 ## Learnings
 
