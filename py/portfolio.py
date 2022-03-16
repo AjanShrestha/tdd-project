@@ -8,15 +8,19 @@ from money import Money
 class Portfolio:
     def __init__(self) -> None:
         self.moneys = []
-        self._eur_to_usd = 1.2
 
     def add(self, *moneys):
         self.moneys.extend(moneys)
 
     def __convert(self, a_money: type[Money], a_currency: str) -> type[Money]:
+        exchange_rates = {
+            "EUR->USD": 1.2,
+            "USD->KRW": 1100,
+        }
         if a_money.currency == a_currency:
             return a_money.amount
-        return a_money.amount * self._eur_to_usd
+        key = f"{a_money.currency}->{a_currency}"
+        return a_money.amount * exchange_rates.get(key)
 
     def evaluate(self, currency: str) -> type[Money]:
         total = functools.reduce(
