@@ -8,11 +8,15 @@ func (p Portfolio) Add(money Money) Portfolio {
 }
 
 func convert(money Money, currency string) float64 {
-	eurToUsd := 1.2
+	eurToUsd := map[string]float64{
+		"EUR->USD": 1.2,
+		"USD->KRW": 1100,
+	}
 	if money.currency == currency {
 		return money.amount
 	}
-	return money.amount * eurToUsd
+	key := money.currency + "->" + currency
+	return money.amount * eurToUsd[key]
 }
 
 func (p Portfolio) Evaluate(currency string) Money {
