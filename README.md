@@ -53,7 +53,8 @@ python3 py/test_money.py
 - ~~5 USD + 10 EUR = 17 USD~~
 - ~~1 USD + 1100 KRW = 2200 KRW~~
 - ~~Determine exchange rate based on the currencies involved(from -> to)~~
-- _**Improve error handling when exchange rates are specified**_
+- ~~Improve error handling when exchange rates are specified~~
+- Improve the implementation of exchange rates
 - Allow exchange rates to be modified
 
 ## Learnings
