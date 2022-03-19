@@ -12,34 +12,22 @@ func (p Portfolio) Add(money Money) Portfolio {
 	return p
 }
 
-func convert(money Money, currency string) (float64, bool) {
-	exchangeRates := map[string]float64{
-		"EUR->USD": 1.2,
-		"USD->KRW": 1100,
-	}
-	if money.currency == currency {
-		return money.amount, true
-	}
-	key := money.currency + "->" + currency
-	rate, ok := exchangeRates[key]
-	return money.amount * rate, ok
-}
-
-func (p Portfolio) Evaluate(currency string) (Money, error) {
+func (p Portfolio) Evaluate(bank Bank, currency string) (*Money, error) {
 	total := 0.0
 	failedConversions := make([]string, 0)
 	for _, m := range p {
-		if convertedAmount, ok := convert(m, currency); ok {
-			total = total + convertedAmount
+		if convertedAmount, err := bank.Convert(m, currency); err == nil {
+			total = total + convertedAmount.amount
 		} else {
 			failedConversions = append(failedConversions,
-				m.currency+"->"+currency)
+				err.Error())
 		}
 	}
 	if len(failedConversions) == 0 {
-		return NewMoney(total, currency), nil
+		totalMoney := NewMoney(total, currency)
+		return &totalMoney, nil
 	}
 	failures := "[" + strings.Join(failedConversions, ",") + "]"
-	return NewMoney(0, ""),
+	return nil,
 		errors.New("Missing exchange rate(s):" + failures)
 }
