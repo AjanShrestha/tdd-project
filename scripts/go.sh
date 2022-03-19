@@ -1,3 +1,3 @@
 #! /bin/bash
 cd go
-nodemon --ext go --exec "go test -v || exit 1"
+nodemon --ext go --exec "go test -v -shuffle on || exit 1"

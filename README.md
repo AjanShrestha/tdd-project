@@ -55,7 +55,7 @@ python3 py/test_money.py
 - ~~Determine exchange rate based on the currencies involved(from -> to)~~
 - ~~Improve error handling when exchange rates are specified~~
 - ~~Improve the implementation of exchange rates~~
-- Allow exchange rates to be modified
+- ~~Allow exchange rates to be modified~~
 
 ## Learnings
 
