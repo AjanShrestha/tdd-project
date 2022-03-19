@@ -5,39 +5,35 @@ class Portfolio {
     this.moneys = [];
   }
 
+  /**
+   * Add money to portfolio
+   * @param  {...Money} moneys
+   */
   add(...moneys) {
     this.moneys = this.moneys.concat(moneys);
   }
 
-  evaluate(currency) {
+  /**
+   * Evaluae the total availabe in portfolio in required Currency
+   * @param {Bank} bank
+   * @param {string} currency
+   * @returns {Money}
+   */
+  evaluate(bank, currency) {
     let failures = [];
     const total = this.moneys.reduce((sum, money) => {
-      let convertedAmount = this.convert(money, currency);
-      if (convertedAmount === undefined) {
-        failures.push(`${money.currency}->${currency}`);
+      try {
+        const convertedMoney = bank.convert(money, currency);
+        return sum + convertedMoney.amount;
+      } catch (error) {
+        failures.push(error.message);
         return sum;
       }
-      return sum + convertedAmount;
     }, 0);
     if (!failures.length) {
       return new Money(total, currency);
     }
     throw new Error(`Missing exchange rate(s):[${failures.join()}]`);
-  }
-
-  convert(money, currency) {
-    let exchangeRates = new Map();
-    exchangeRates.set('EUR->USD', 1.2);
-    exchangeRates.set('USD->KRW', 1100);
-    if (money.currency === currency) {
-      return money.amount;
-    }
-    const key = money.currency + '->' + currency;
-    let rate = exchangeRates.get(key);
-    if (rate === undefined) {
-      return undefined;
-    }
-    return money.amount * rate;
   }
 }
 
